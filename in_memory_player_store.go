@@ -1,5 +1,9 @@
 package main
 
+func NewInMemoryPlayerStore() *InMemoryPlayerStore {
+	return &InMemoryPlayerStore{map[string]int{}}
+}
+
 type InMemoryPlayerStore struct {
 	store map[string]int
 }
