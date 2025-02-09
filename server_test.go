@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -9,7 +10,7 @@ import (
 func TestGETPlayers(t *testing.T) {
 
 	t.Run("returns Pepper's score", func(t *testing.T) {
-		request, _ := http.NewRequest(http.MethodGet, "/players/Pepper", nil)
+		request := newGetScoreRequest("Pepper")
 		response := httptest.NewRecorder()
 
 		PlayerServer(response, request)
@@ -21,7 +22,7 @@ func TestGETPlayers(t *testing.T) {
 	})
 
 	t.Run("returns Floyd's score", func(t *testing.T) {
-		request, _ := http.NewRequest(http.MethodGet, "/players/Floyd", nil)
+		request := newGetScoreRequest("Floyd")
 		response := httptest.NewRecorder()
 
 		PlayerServer(response, request)
@@ -31,6 +32,11 @@ func TestGETPlayers(t *testing.T) {
 
 		assertResponseBody(t, got, want)
 	})
+}
+
+func newGetScoreRequest(name string) *http.Request {
+	req, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("/players/%s", name), nil)
+	return req
 }
 
 func assertResponseBody(t *testing.T, got, want string) {
