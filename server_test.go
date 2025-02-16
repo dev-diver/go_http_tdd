@@ -123,11 +123,6 @@ func assertStatus(t *testing.T, got, want int) {
 	}
 }
 
-type Player struct {
-	Name string
-	Wins int
-}
-
 func TestLeague(t *testing.T) {
 	store := StubPlayerStore{}
 	server := NewPlayerServer(&store)
