@@ -38,14 +38,8 @@ type Player struct {
 }
 
 func (p *PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(p.store.GetLeague())
-	w.WriteHeader(http.StatusOK)
-}
-
-func (p *PlayerServer) getLeagueTable() []Player {
-	return []Player{
-		{"Chris", 20},
-	}
 }
 
 func (p *PlayerServer) playersHandler(w http.ResponseWriter, r *http.Request) {
