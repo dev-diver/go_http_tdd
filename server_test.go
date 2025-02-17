@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -164,13 +163,8 @@ func newLeagueRequest() *http.Request {
 
 func getLeagueFromResponse(t testing.TB, body *bytes.Buffer) []Player {
 	t.Helper()
-	var got []Player
-	err := json.NewDecoder(body).Decode(&got)
-
-	if err != nil {
-		t.Fatalf("Unable to parse response from server %q into slice of Player, '%v'", body, err)
-	}
-	return got
+	league, _ := NewLeague(body)
+	return league
 }
 
 func assertLeague(t testing.TB, got, want []Player) {
