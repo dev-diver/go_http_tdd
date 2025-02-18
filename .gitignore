@@ -1,2 +1,2 @@
 go-http-tdd
-game.db.json
+*.db.json
